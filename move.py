@@ -18,7 +18,7 @@ class Move(Item):
         self.effect = globals().get('_' + self.name.lower(), _normal_attack)
 
     def __repr__(self):
-        return ' | '.join(f'{prop_name}: {getattr(self, prop_name)}' for prop_name in self._prop_list if prop_name.lower() != 'description') + '\n' + self.description
+        return ' | '.join(f'{prop_name.title()}: {getattr(self, prop_name)}' for prop_name in self._prop_list if prop_name.lower() != 'description') + '\n' + self.description
 
     def __call__(self):
         # if hasattr(user, 'attack_buf'):
