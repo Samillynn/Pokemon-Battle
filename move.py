@@ -17,7 +17,9 @@ class Move(Item):
         self.critical = NORMAL_CRITICAL
         self.effect = globals().get('_' + self.name.lower(), _normal_attack)
 
-    
+    def __repr__(self):
+        return ' | '.join(f'{prop_name}: {getattr(self, prop_name)}' for prop_name in self._prop_list if prop_name.lower() != 'description') + '\n' + self.description
+
     def __call__(self):
         # if hasattr(user, 'attack_buf'):
         #     attack_buf(move)
@@ -34,18 +36,22 @@ class Move(Item):
             A = user.sp_atk
             D = opp.sp_def
         
+        # Finds the resultant type effectiveness if the target is a dual-type Pokemon. If its a single type Pokemon it will work as well
         coef_type_dual = 1
         for type_name in opp.type:
             coef_type_dual *= coef_type[self.type][type_name]
 
+        # A super-effective move based on the move's type and the target's type
         if coef_type_dual > 1:
             print('The move is super effective!')
             print()
 
+        # A not very effective move based on the move's type and the target's type
         elif coef_type_dual < 1 and coef_type_dual > 0:
             print('The move is not very effective...')
             print()
 
+        # If the target Pokemon is immune to a move of a particular type, due to the target Pokemon's type
         elif coef_type_dual == 0:
             print(f"It didn't even affect {opp.player[1]}'s {opp.name} at all...")
 
@@ -79,7 +85,6 @@ def _self_attack(move):
 def _cant_move(move):
     user = move.user
     print(f"{user.player[1]}'s {user.name} cant\'t move because it is {user.status}")
-
 
 def _curse(move):
     user = move.user
@@ -145,7 +150,6 @@ def _scald(move):
     if random.random() < 0.3:
         opp.status = burn()
         print(f"{opp.player[1]}'s {opp.name} is burned!")
-    
  
 def _sludge_bomb(move):
     opp = move.opp

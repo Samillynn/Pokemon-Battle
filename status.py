@@ -35,10 +35,8 @@ def flinch_start(user):
 def flinch_end(user):
     user.active = True
 
-
 def poison_end(user):
     user.hp -= user.max_hp / 8
-
  
 def bad_poison_start(user):
     user.poison_level = 1
@@ -46,7 +44,6 @@ def bad_poison_start(user):
 def bad_poison_end(user):
     user.hp -= user.max_hp * user.posion_level * (1 / 16)
     user.posion_level += 1
-
 
 def sleep_start(user, turns):
     user.t_sleep = turns
@@ -61,17 +58,14 @@ def sleep_end(user):
  
     del user.t_sleep
 
-
 def burn_end(user):
     user.hp -= user.max_hp / 16 
-
 
 def leech_seed_end(user):
     opp = user.opp
     user.hp -= user.max_hp / 8
     opp.hp += user.hp
 
- 
 def paralyse_start(user):
     user.speed /= 2
     if random.random() < 0.25:
@@ -89,7 +83,6 @@ def paralyse_del(user):
     user.speed *= 2
     user.active = True
 
- 
 def freeze_start(user):
     user.active = False    
  
@@ -97,8 +90,6 @@ def freeze_end(user):
     if random.random() < 0.2:
         user.status = normal()
         user.active = True
-
-
 
 normal = make_status('normal')
 flinch = make_status('flinch')
