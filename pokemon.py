@@ -20,7 +20,6 @@ def stat(stat_name):
                 # instance.game.winner = instance
         instance.__dict__[stat_name] = val
 
-
     def getter(instance):
         val = instance.__dict__[stat_name]
         if stat_name != 'hp':
@@ -35,7 +34,6 @@ class Stages(Item):
         if val > 6: val = 6
         if val < -6: val = -6
         self.__dict__[name] = val
-
 
 class Pokemon(Item):
     move_fac = Factory(Move, MOVE_DB_PATH)
@@ -77,10 +75,12 @@ class Pokemon(Item):
             print(move)
             print()
 
+        # Prompts the player to select their move, and if it is an invalid input, it will prompt the user to select again.
         while True:
             user_move_no = input(f'{self.player[1]}, please select your move (1, 2, 3 or 4) for your {self.name}: ')
+            print('___________________________________________________________________________________________________')
             
-            if user_move_no in '1234':
+            if (user_move_no == '1' or user_move_no == '2' or user_move_no == '3' or user_move_no == '4') and user_move_no != '':
                 move = self._moves[int(user_move_no) - 1]
 
                 if move.pp > 0:

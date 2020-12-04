@@ -15,7 +15,7 @@ moves_list = ['Curse', 'Body_Slam', 'Rest', 'Earthquake', 'Swords_Dance', 'Meteo
 
 # Functions of the game
 def view_move(): # Prompts the player to choose a move so that he can view the details of the move.
-    # Move details
+	# Move details
 	Curse = {'Power': 0, 'Type': 'Ghost', 'Category': 'Status', 'PP': 10, 'Accuracy': 0, 'Priority': 0, 'Description': 'Raises Attack and Defense stats by 1 stage each, reduces Speed stat by 1 stage.'}
 	Body_Slam = {'Power': 85, 'Type': 'Normal', 'Category': 'Physical', 'PP': 15, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage and 30% chance of paralysis.'}
 	Rest = {'Power': 0, 'Type': 'Psychic', 'Category': 'Status', 'PP': 10, 'Accuracy': 0, 'Priority': 0, 'Description': 'Sleeps for 2 turns, but fully restores HP and clears status effects.'}
@@ -74,12 +74,12 @@ def view_move(): # Prompts the player to choose a move so that he can view the d
 	print()
 
 	while move_name_string.lower() != 'next':
-        # Checks if an invalid input has been entered (invalid input means not the exact name of the move as displayed)
+		# Checks if an invalid input has been entered (invalid input means not the exact name of the move as displayed)
 		while move_name_string not in moves_list and move_name_string != 'next':
 			move_name_string = input("Invalid move! Please type in the name of the move (exactly as displayed, case and space sensitive, excluding the ''), or type in 'next' to return to the Pokemon list: ")
 			print()
 
-        # Displays the details of each move, vars() syntax is from https://www.daniweb.com/programming/software-development/threads/111526/setting-a-string-as-a-variable-name
+		# Displays the details of each move, vars() syntax is from https://www.daniweb.com/programming/software-development/threads/111526/setting-a-string-as-a-variable-name
 		if move_name_string != 'next': # In case the user types 'next' previously
 			move_name = vars()[move_name_string]
 			print(f'''{move_name_string} - Type: {move_name['Type']} | Category: {move_name['Category']} | Power: {move_name['Power']} | Accuracy: {int(move_name['Accuracy'] * 100)}% | PP: {move_name['PP']}\nDescription: {move_name['Description']}''')
@@ -88,19 +88,29 @@ def view_move(): # Prompts the player to choose a move so that he can view the d
 			print()
 
 # Displays the current status and HP of the Pokemon in battle
-def display_hp_status(pokemon):
-	print(f'''{pokemon.player[1]}\n{pokemon.name}\nHP: {pokemon.hp}/{pokemon.max_hp}''') # Prints out the current HP of the Pokemon
-	print(f'''Status: {pokemon.status.name}''')
+def display_hp_status():
+	print(f'''{player_1_pokemon.player[1]}''')
+	print('_________________________')
+	print(f'''{player_1_pokemon.name}\nHP: {player_1_pokemon.hp}/{player_1_pokemon.max_hp}''') # Prints out the current HP of the Pokemon
+	print(f'''Status: {player_1_pokemon.status.name}''')
+	print('_________________________')
+	print()
+	print(f'''{player_2_pokemon.player[1]}''')
+	print('_________________________')
+	print(f'''{player_2_pokemon.name}\nHP: {player_2_pokemon.hp}/{player_2_pokemon.max_hp}''') # Prints out the current HP of the Pokemon
+	print(f'''Status: {player_2_pokemon.status.name}''')
+	print('_________________________')
 	print()
 
 # To check if any Pokemon has died/fained/HP is 0 
 def check_0_hp(pokemon):
-    if pokemon.hp <= 0:
-        print()
-        print(f"{pokemon.player[1]}'s {pokemon.name} has fainted, {pokemon.opp.player[1]} wins!")
-        print()
-        return True
-       
+	if pokemon.hp <= 0:
+		print()
+		display_hp_status()
+		print(f"{pokemon.player[1]}'s {pokemon.name} has fainted, {pokemon.opp.player[1]} wins!")
+		print()
+		return True
+	   
 # The actual game
 # The Pokemon ASCII art right below is from https://www.asciiart.eu/video-games/pokemon
 print('''
@@ -109,7 +119,7 @@ print('''
  | |_) | (_) |   <  __/ | | | | | (_) | | | |    |___|   /____\      |       |     |     |_____
  | .__/ \___/|_|\_\___|_| |_| |_|\___/|_| |_|    |   |  /      \     |       |     |     |
  |_|                                             |___| /        \    |       |     |____ |_____
-    ''')
+	''')
 
 print()
 
@@ -128,22 +138,22 @@ print()
 trigger = True # So that the while loop below (to display the Pokemon list) can keep running until the user inputs 'continue'.
 
 while trigger:
-    print('''Pokemons available:\n\n- Snorlax (The Sleeping Giant)\n- Lucario (The UFC Fighter)\n- Salamence (The European Dragon)\n- Tentacruel (The Box Jellyfish)\n- Rhyperior (The Boulder Rhino)\n- Tyranitar (The Tyrannosarus Rex)\n- Volcarona (The Fire Bug)\n- Gengar (The Original Ghost)\n- Charizard (The Fire Dragon)\n- Blastoise (The Cannon Tortoise)\n- Venusaur (The Poison Rafflesia)\n- Electivire (The Electric Fighter)\n- Gardevoir (The Beautiful Sorcerer)\n- Mamoswine (The Ice Mammoth)\n- Garchomp (The Land Shark)\n- Hydreigon (The Black Dragon)\n- Metagross (The Computer Monster)\n- Sylveon (The Weird Eeveelution)''')
-    print()
-    user_input = input("Please type in the name of a Pokemon to look at its information. Type in 'continue' to move on with the game: ")
-    print()
+	print('''Pokemons available:\n\n- Snorlax (The Sleeping Giant)\n- Lucario (The UFC Fighter)\n- Salamence (The European Dragon)\n- Tentacruel (The Box Jellyfish)\n- Rhyperior (The Boulder Rhino)\n- Tyranitar (The Tyrannosarus Rex)\n- Volcarona (The Fire Bug)\n- Gengar (The Original Ghost)\n- Charizard (The Fire Dragon)\n- Blastoise (The Cannon Tortoise)\n- Venusaur (The Poison Rafflesia)\n- Electivire (The Electric Fighter)\n- Gardevoir (The Beautiful Sorcerer)\n- Mamoswine (The Ice Mammoth)\n- Garchomp (The Land Shark)\n- Hydreigon (The Black Dragon)\n- Metagross (The Computer Monster)\n- Sylveon (The Weird Eeveelution)\n - Magikarp (The Strongest and Most Legendary Pokemon in all of Existence)''')
+	print()
+	user_input = input("Please type in the name of a Pokemon to look at its information. Type in 'continue' to move on with the game: ")
+	print()
 
-    # Prints out the dictionary containing the main details of each Pokemon
-    if user_input.lower() in pokemon_list:
-        print(poke_fac.make(user_input, player = (3)))
-        view_move()
+	# Prints out the dictionary containing the main details of each Pokemon
+	if user_input.lower() in pokemon_list:
+		print(poke_fac.make(user_input, player = (3))) # So that whatever Pokemon the player chooses here (just to view its information) will not be assigned to any of the players in the actual battle
+		view_move()
 
-    elif user_input.lower() == 'continue':
-        trigger = False
-        
-    else:
-        user_input = input("Invalid input! Input any key to continue: ")
-        print()
+	elif user_input.lower() == 'continue':
+		trigger = False
+		
+	else:
+		user_input = input("Invalid input! Input any key to continue: ")
+		print()
 
 print('Please note that the stats you have seen previously are base stats and only serve as a comparison between the various Pokemon. The actual stats in battle will be based on the base stats, but not the same!')
 print()
@@ -191,149 +201,110 @@ print('Let the battle begin!')
 print(f'{player_1_name} - {player_1_pokemon.name} VS. {player_2_name} - {player_2_pokemon.name}!')
 print()
 
-trigger = True
+trigger = True # So that the game can run infinitely, until trigger = False, when one of the Pokemon's HP decreases to 0.
 
 while trigger:
-	display_hp_status(player_1_pokemon)
-	display_hp_status(player_2_pokemon)
+	display_hp_status()
 	player_1_move = player_1_pokemon.select_move() # Prompts the player to select a move
-	print()
-	print(f'''{player_2_name}\n{player_2_pokemon.name}\nHP: {player_2_pokemon.hp}/{player_2_pokemon.max_hp}''')
 	print()
 	player_2_move = player_2_pokemon.select_move()
 	print()
 
-    # Speed comparison and move priority comparison to determine which Pokemon will move first
+	# Speed comparison and move priority comparison to determine which Pokemon will move first
 	if player_1_move.priority > player_2_move.priority:
-        # The Pokemon make their moves
+		# The Pokemon make their moves
 		print(f"{player_1_name}'s {player_1_pokemon.name} used {player_1_move.name}!")
 		print()
 		player_1_pokemon.move()
 		print()
-		print(f'''{player_2_name}\n{player_2_pokemon.name}\nHP: {player_2_pokemon.hp}/{player_2_pokemon.max_hp}''') # Prints out the remaining HP out of the maximum HP of each Pokemon
-        
+		display_hp_status()
+		
 		if check_0_hp(player_2_pokemon) == True:
 			trigger = False
 			break
 
-		print()
 		print(f"{player_2_name}'s {player_2_pokemon.name} used {player_2_move.name}!")
 		print()
 		player_2_pokemon.move()
 		print()
-		print(f'''{player_1_name}\n{player_1_pokemon.name}\nHP: {player_1_pokemon.hp}/{player_1_pokemon.max_hp}''')
 
 		if check_0_hp(player_1_pokemon) == True:
 			trigger = False
 			break
 
-		print()
-
 		if player_2_pokemon.speed > player_1_pokemon.speed:
-            # The Pokemon receive any status effects
+			# The Pokemon receive any status effects
 			player_2_pokemon.status.end_turn()
-			print()
-			print(f'''{player_2_name}\n{player_2_pokemon.name}\nHP: {player_2_pokemon.hp}/{player_2_pokemon.max_hp}''')
 
 			if check_0_hp(player_2_pokemon) == True:
 				trigger = False
 				break
 
-			print()
 			player_1_pokemon.status.end_turn()
-			print()
-			print(f'''{player_1_name}\n{player_1_pokemon.name}\nHP: {player_1_pokemon.hp}/{player_1_pokemon.max_hp}''')
 
 			if check_0_hp(player_1_pokemon) == True:
 				trigger = False
 				break
-
-			print()
 
 		else:
 			player_1_pokemon.status.end_turn()
-			print()
-			print(f'''{player_1_name}\n{player_1_pokemon.name}\nHP: {player_1_pokemon.hp}/{player_1_pokemon.max_hp}''')
 
 			if check_0_hp(player_1_pokemon) == True:
 				trigger = False
 				break
-            
-			print()
+			
 			player_2_pokemon.status.end_turn()
-			print()
-			print(f'''{player_2_name}\n{player_2_pokemon.name}\nHP: {player_2_pokemon.hp}/{player_2_pokemon.max_hp}''')
 
 			if check_0_hp(player_2_pokemon) == True:
 				trigger = False
 				break
-            
-			print()
 
 	elif player_2_move.priority > player_1_move.priority:
 		print(f"{player_2_name}'s {player_2_pokemon.name} used {player_2_move.name}!")
 		print()
 		player_2_pokemon.move()
 		print()
-		print(f'''{player_1_name}\n{player_1_pokemon.name}\nHP: {player_1_pokemon.hp}/{player_1_pokemon.max_hp}''')
+		display_hp_status()
 
 		if check_0_hp(player_1_pokemon) == True:
 			trigger = False
 			break
-        
-		print()
+		
 		print(f"{player_1_name}'s {player_1_pokemon.name} used {player_1_move.name}!")
 		print()
 		player_1_pokemon.move()
 		print()
-		print(f'''{player_2_name}\n{player_2_pokemon.name}\nHP: {player_2_pokemon.hp}/{player_2_pokemon.max_hp}''')
 
 		if check_0_hp(player_2_pokemon) == True:
 			trigger = False
 			break
-        
-		print()
 
 		if player_2_pokemon.speed > player_1_pokemon.speed:
-            # The Pokemon receive any status effects
+			# The Pokemon receive any status effects
 			player_2_pokemon.status.end_turn()
-			print()
-			print(f'''{player_2_name}\n{player_2_pokemon.name}\nHP: {player_2_pokemon.hp}/{player_2_pokemon.max_hp}''')
 
 			if check_0_hp(player_2_pokemon) == True:
 				trigger = False
 				break
-            
-			print()
+
 			player_1_pokemon.status.end_turn()
-			print()
-			print(f'''{player_1_name}\n{player_1_pokemon.name}\nHP: {player_1_pokemon.hp}/{player_1_pokemon.max_hp}''')
 
 			if check_0_hp(player_1_pokemon) == True:
 				trigger = False
 				break
-            
-			print()
 
 		else:
 			player_1_pokemon.status.end_turn()
-			print()
-			print(f'''{player_1_name}\n{player_1_pokemon.name}\nHP: {player_1_pokemon.hp}/{player_1_pokemon.max_hp}''')
 
 			if check_0_hp(player_1_pokemon) == True:
 				trigger = False
 				break
 
-			print()
 			player_2_pokemon.status.end_turn()
-			print()
-			print(f'''{player_2_name}\n{player_2_pokemon.name}\nHP: {player_2_pokemon.hp}/{player_2_pokemon.max_hp}''')
 
 			if check_0_hp(player_2_pokemon) == True:
 				trigger = False
 				break
-            
-			print()
 
 	elif player_1_move.priority == player_2_move.priority:
 		if player_1_pokemon.speed > player_2_pokemon.speed:
@@ -341,84 +312,64 @@ while trigger:
 			print()
 			player_1_pokemon.move()
 			print()
-			print(f'''{player_2_name}\n{player_2_pokemon.name}\nHP: {player_2_pokemon.hp}/{player_2_pokemon.max_hp}''')
+			display_hp_status()
 
 			if check_0_hp(player_2_pokemon) == True:
 				trigger = False
 				break
-            
-			print()
+			
 			print(f"{player_2_name}'s {player_2_pokemon.name} used {player_2_move.name}!")
 			print()
 			player_2_pokemon.move()
 			print()
-			print(f'''{player_1_name}\n{player_1_pokemon.name}\nHP: {player_1_pokemon.hp}/{player_1_pokemon.max_hp}''')
 
 			if check_0_hp(player_1_pokemon) == True:
 				trigger = False
 				break
-            
-			print()
+			
 			player_1_pokemon.status.end_turn()
-			print()
-			print(f'''{player_1_name}\n{player_1_pokemon.name}\nHP: {player_1_pokemon.hp}/{player_1_pokemon.max_hp}''')
 
 			if check_0_hp(player_1_pokemon) == True:
 				trigger = False
 				break
-            
-			print()
+			
 			player_2_pokemon.status.end_turn()
-			print()
-			print(f'''{player_2_name}\n{player_2_pokemon.name}\nHP: {player_2_pokemon.hp}/{player_2_pokemon.max_hp}''')
 
 			if check_0_hp(player_2_pokemon) == True:
 				trigger = False
 				break
-            
-			print()
 
 		elif player_2_pokemon.speed > player_1_pokemon.speed:
 			print(f"{player_2_name}'s {player_2_pokemon.name} used {player_2_move.name}!")
 			print()
 			player_2_pokemon.move()
 			print()
-			print(f'''{player_1_name}\n{player_1_pokemon.name}\nHP: {player_1_pokemon.hp}/{player_1_pokemon.max_hp}''')
+			display_hp_status()
 
 			if check_0_hp(player_1_pokemon) == True:
 				trigger = False
 				break
-            
-			print()
+			
 			print(f"{player_1_name}'s {player_1_pokemon.name} used {player_1_move.name}!")
 			print()
 			player_1_pokemon.move()
 			print()
-			print(f'''{player_2_name}\n{player_2_pokemon.name}\nHP: {player_2_pokemon.hp}/{player_2_pokemon.max_hp}''')
 
 			if check_0_hp(player_2_pokemon) == True:
 				trigger = False
 				break
-            
-			print()
+			
 			player_2_pokemon.status.end_turn()
-			print()
-			print(f'''{player_2_name}\n{player_2_pokemon.name}\nHP: {player_2_pokemon.hp}/{player_2_pokemon.max_hp}''')
 
 			if check_0_hp(player_2_pokemon) == True:
 				trigger = False
 				break
-            
-			print()
+			
 			player_1_pokemon.status.end_turn()
-			print()
-			print(f'''{player_1_name}\n{player_1_pokemon.name}\nHP: {player_1_pokemon.hp}/{player_1_pokemon.max_hp}''')
 
 			if check_0_hp(player_1_pokemon) == True:
 				trigger = False
 				break
-            
-			print()
 
 		elif player_1_pokemon.speed == player_2_pokemon.speed:
 			random_number = random.random() < 0.5
@@ -428,84 +379,64 @@ while trigger:
 				print()
 				player_1_pokemon.move()
 				print()
-				print(f'''{player_2_name}\n{player_2_pokemon.name}\nHP: {player_2_pokemon.hp}/{player_2_pokemon.max_hp}''')
+				display_hp_status()
 
 				if check_0_hp(player_2_pokemon) == True:
 					trigger = False
 					break
-                
-				print()
+				
 				print(f"{player_2_name}'s {player_2_pokemon.name} used {player_2_move.name}!")
 				print()
 				player_2_pokemon.move()
 				print()
-				print(f'''{player_1_name}\n{player_1_pokemon.name}\nHP: {player_1_pokemon.hp}/{player_1_pokemon.max_hp}''')
 
 				if check_0_hp(player_1_pokemon) == True:
 					trigger = False
 					break
-                
-				print()
+				
 				player_1_pokemon.status.end_turn()
-				print()
-				print(f'''{player_1_name}\n{player_1_pokemon.name}\nHP: {player_1_pokemon.hp}/{player_1_pokemon.max_hp}''')
 
 				if check_0_hp(player_1_pokemon) == True:
 					trigger = False
 					break
-                
-				print()
+				
 				player_2_pokemon.status.end_turn()
-				print()
-				print(f'''{player_2_name}\n{player_2_pokemon.name}\nHP: {player_2_pokemon.hp}/{player_2_pokemon.max_hp}''')
 
 				if check_0_hp(player_2_pokemon) == True:
 					trigger = False
 					break
-                
-				print()
 
 			else:
 				print(f"{player_2_name}'s {player_2_pokemon.name} used {player_2_move.name}!")
 				print()
 				player_2_pokemon.move()
 				print()
-				print(f'''{player_1_name}\n{player_1_pokemon.name}\nHP: {player_1_pokemon.hp}/{player_1_pokemon.max_hp}''')
+				display_hp_status()
 
 				if check_0_hp(player_1_pokemon) == True:
 					trigger = False
 					break
-                
-				print()
+				
 				print(f"{player_1_name}'s {player_1_pokemon.name} used {player_1_move.name}!")
 				print()
 				player_1_pokemon.move()
 				print()
-				print(f'''{player_2_name}\n{player_2_pokemon.name}\nHP: {player_2_pokemon.hp}/{player_2_pokemon.max_hp}''')
 
 				if check_0_hp(player_2_pokemon) == True:
 					trigger = False
 					break
-                
-				print()
+				
 				player_2_pokemon.status.end_turn()
-				print()
-				print(f'''{player_2_name}\n{player_2_pokemon.name}\nHP: {player_2_pokemon.hp}/{player_2_pokemon.max_hp}''')
 
 				if check_0_hp(player_2_pokemon) == True:
 					trigger = False
 					break
-                
-				print()
+				
 				player_1_pokemon.status.end_turn()
-				print()
-				print(f'''{player_1_name}\n{player_1_pokemon.name}\nHP: {player_1_pokemon.hp}/{player_1_pokemon.max_hp}''')
 
 				if check_0_hp(player_1_pokemon) == True:
 					trigger = False
 					break
-                
-				print()
 
 # End of game
 print('Game over, thank you for playing this game!')
