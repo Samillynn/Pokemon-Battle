@@ -7,7 +7,9 @@ from status import *
 NORMAL_CRITICAL = 0.04167
 
 class Move(Item):
-	def __init__(self, name, user, opp=None, **kwargs):
+        seperator = ' | '
+
+	def __init__(self, name, user, opp=None, description=None, **kwargs):
 		# self.name = name
 		super().__init__(name=name, **kwargs)
 		self.user = user
@@ -18,7 +20,7 @@ class Move(Item):
 		self.effect = globals().get('_' + self.name.lower(), _normal_attack)
 
 	def __repr__(self):
-		return ' | '.join(f'{prop_name.title()}: {getattr(self, prop_name)}' for prop_name in self._prop_list if prop_name.lower() != 'description') + '\n' + self.description
+		return super().__repr__() + '\n' + self.description
 
 	def __call__(self):
 		# if hasattr(user, 'attack_buf'):
@@ -116,7 +118,7 @@ def _body_slam(move):
 def _rest(move):
 	user = move.user
 	user.hp = user.max_hp
-	user.status = sleep(turns=2)
+	user.add_status('sleep', t_sleep=2)
 	print(f"{user.player[1]}'s {user.name} went to sleep and became healthy!")
  
 def _swords_dance(move):
@@ -165,7 +167,7 @@ def _scald(move):
 	
 	if damage > 0:
 		if random.random() < 0.3:
-			opp.status = burn()
+			opp.add_status('burn')
 			print(f"{opp.player[1]}'s {opp.name} is burned!")
  
 def _sludge_bomb(move):
@@ -174,7 +176,7 @@ def _sludge_bomb(move):
 	
 	if damage > 0:
 		if random.random() < 0.3:
-			opp.status = poison()
+			opp.add_status('poison')
 			print(f"{opp.player[1]}'s {opp.name} is poisoned!")
  
 def _stone_edge(move):
@@ -188,7 +190,7 @@ def _ice_punch(move):
 	
 	if damage > 0:
 		if random.random() < 0.1:
-			opp.status = freeze()
+			opp.add_status('freeze')
 			print(f"{opp.player[1]}'s {opp.name} is frozen!")
  
 def _rock_slide(move):
@@ -197,7 +199,7 @@ def _rock_slide(move):
 	
 	if damage > 0:
 		if random.random() < 0.3:
-			opp.status = flinch()
+			opp.add_status('flinch')
 			print(f"{opp.player[1]}'s {opp.name} flinched!")
  
 def _crunch(move):
@@ -215,7 +217,7 @@ def _fire_punch(move):
 	
 	if damage > 0:
 		if random.random() < 0.1:
-			opp.status = burn()
+			opp.add_status('burn')
 			print(f"{opp.player[1]}'s {opp.name} is burned!")
  
 def _quiver_dance(move):
@@ -231,7 +233,7 @@ def _flamethrower(move):
 	
 	if damage > 0:
 		if random.random() < 0.1:
-			opp.status = burn() 
+			opp.add_status('burn')
 			print(f"{opp.player[1]}'s {opp.name} is burned!")
  
 def _bug_buzz(move):
@@ -263,7 +265,7 @@ def _sludge_wave(move):
 	
 	if damage > 0:
 		if random.random() < 0.1:
-			opp.status = poison()
+			opp.add_status('poison')
 			print(f"{opp.player[1]}'s {opp.name} is poisoned!")
  
 def _focus_blast(move):
@@ -281,7 +283,7 @@ def _thunderbolt(move):
 	
 	if damage > 0:
 		if random.random() < 0.1:
-			opp.status = paralyse()
+			opp.add_status('paralyse')
 			print(f"{opp.player[1]}'s {opp.name} is paralysed!")
  
 def _fire_blast(move):
@@ -290,7 +292,7 @@ def _fire_blast(move):
 	
 	if damage > 0:
 		if random.random() < 0.1:
-			opp.status = burn()
+			opp.add_status('burn')
 			print(f"{opp.player[1]}'s {opp.name} is burned!")
  
 def _air_slash(move):
@@ -299,7 +301,7 @@ def _air_slash(move):
 	
 	if damage > 0:
 		if random.random() < 0.3:
-			opp.status = flinch()
+			opp.add_status('flinch')
 			print(f"{opp.player[1]}'s {opp.name} flinched!")
  
 def _fake_out(move):
@@ -307,21 +309,21 @@ def _fake_out(move):
 	damage = move.attack()
 
 	if damage > 0:
-		opp.status = flinch()
+		opp.add_status('flinch')
 		print(f"{opp.player[1]}'s {opp.name} flinched!")
- 
+     
 def _ice_beam(move):
 	opp = move.opp
 	damage = move.attack()
  
 	if damage > 0:
 		if random.random() < 0.1:
-			opp.status = freeze()
+			opp.add_status('freeze')
 			print(f"{opp.player[1]}'s {opp.name} is frozen!")
  
 def _leech_seed(move):
 	opp = move.opp
-	opp.status = leech_seed()
+	opp.add_status('leech_seed')
 	print(f"{opp.player[1]}'s {opp.name} is seeded!")
  
 def _leaf_storm(move):
@@ -357,7 +359,7 @@ def _icicle_crash(move):
 	
 	if damage > 0:
 		if random.random() < 0.3:
-			opp.status = flinch()
+			opp.add_status('flich')
 			print(f"{opp.player[1]}'s {opp.name} flinched!")
  
 def _will_o_wisp(move):
@@ -380,7 +382,7 @@ def _dark_pulse(move):
 	
 	if damage > 0:
 		if random.random() < 0.2:
-			opp.status = flinch()
+			opp.add_status('flinch')
 			print(f"{opp.player[1]}'s {opp.name} flinched!")
  
 def _charge_beam(move):
@@ -398,7 +400,7 @@ def _thunder_punch(move):
 	
 	if damage > 0:
 		if random.random() < 0.1:
-			opp.status = paralyse()
+			opp.add_status('paralyse')
 			print(f"{opp.player[1]}'s {opp.name} is paralysed!")
  
 def _mystical_fire(move):

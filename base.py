@@ -7,13 +7,15 @@ coef_type = json.load(open(COEF_TYPE_DB_PATH))
 
 
 class Item:
+    self.seperator = '\n'
+
     def __init__(self, **kwargs):
         self.__dict__['_prop_list'] = tuple(kwargs)
         self.__dict__.update(kwargs)
 
-    def __repr__(self):
-        return '\n'.join(f"{prop.replace('-',' ').title()}: {getattr(self, prop)}" 
-                for prop in self._prop_list)
+    def __repr__(self, prop_list=None):
+        return self.seperator.join(f"{prop.replace('-',' ').title()}: {getattr(self, prop)}" 
+                for prop in self.prop_list)
 
 class Factory():
     def __init__(self, item_cls, db_path):

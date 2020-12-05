@@ -2,6 +2,7 @@ import json
 from status import normal
 from base import Item, STAT_NAMES, Factory, coef_stage
 from move import Move
+from status import *
 
 CONFUSION_PROB = 0.33
 MOVE_DB_PATH = 'moves.json'
@@ -30,6 +31,7 @@ def stat(stat_name):
 
 # Mimum stat stage is -6 and maximum stat stage is +6
 class Stages(Item):
+    seperator = ' | '
     def __setattr__(self, name, val):
         if val > 6: val = 6
         if val < -6: val = -6
@@ -40,23 +42,52 @@ class Pokemon(Item):
     for stat_name in STAT_NAMES:
         vars()[stat_name] = stat(stat_name)
 
-    def __init__(self, player, **kwargs):
+    def __init__(self, user, player, **kwargs):
         super().__init__(**kwargs)
+        self.user = user
         self.player = player
         self.level = 100
         self.active = True
         self.confused = False
-        self.status = normal()
+        self.status = []
         self.next_move = None
         self.stages = Stages(**{stat_name:0 for stat_name in STAT_NAMES})
         for stat_name in STAT_NAMES:
             basic_stat = getattr(self, stat_name)
-            setattr(self, 'basic_' + stat_name, basic_stat)
+            self.__dict__['basic_' + stat_name] = basic_stat
             self.__dict__[stat_name] = self.compute_stat(stat_name, basic_stat)
         self.max_hp = self.hp
 
     # To calculate the actual stats of the Pokemon in battle from the base stats
     # Stat calculation is from https://bulbapedia.bulbagarden.net/wiki/Statistic
+
+    def add_status(self, status_name, *arg, **kwargs):
+        append_condition = True
+        # check conditions of adding the status
+        if status_name == 'sleep'
+            if 'burn' in self.status:
+                #TODO
+                #TODO
+
+        if append_condition:
+            status = globals()[stat_name](*arg, **kwargs)
+            status.bind(self)
+            status.start()
+            self.status.append(status)
+
+    def remove_status(self, status):
+        for my_status in self.status:
+            if my_status == status:
+                my_status.remove()
+                self.status.remove(stat_name)
+
+    def clear_status(self):
+        self.status.clear()
+
+    def status_effect(self):
+        for status in self.status:
+            status.end_turn()
+
     def compute_stat(self, stat_name, val):
         if stat_name == 'hp':
             val = int((2*val + 31 + (252/4)) + self.level + 10)

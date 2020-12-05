@@ -6,69 +6,9 @@ import random
 POKE_DB_PATH = 'pokemons.json'
 poke_fac = Factory(Pokemon, POKE_DB_PATH)
 
-pokemon_list = ['snorlax', 'lucario', 'salamence', 'tentacruel', 'rhyperior', 'tyranitar', 'volcarona', 'gengar', 'charizard', 'blastoise', 'venusaur', 'electivire', 'gardevoir', 'mamoswine', 'garchomp', 
-'hydreigon', 'metagross', 'sylveon']
-moves_list = ['Curse', 'Body_Slam', 'Rest', 'Earthquake', 'Swords_Dance', 'Meteor_Mash', 'Close_Combat', 'Bullet_Punch', 'Dragon_Dance', 'Double_Edge', 'Dragon_Claw', 'Aerial_Ace', 'Scald', 'Toxic', 
-'Sludge_Bomb', 'Dazzling_Gleam', 'Stone_Edge', 'Megahorn', 'Ice_Punch', 'Rock_Slide', 'Crunch', 'Fire_Punch', 'Quiver_Dance', 'Flamethrower', 'Bug_Buzz', 'Roost', 'Shadow_Ball', 'Sludge_Wave', 
-'Focus_Blast', 'Thunderbolt', 'Fire_Blast', 'Air_Slash', 'Dragon_Pulse', 'Fake_Out', 'Hydro_Pump', 'Ice_Beam', 'Aura_Sphere', 'Leech_Seed', 'Leaf_Storm', 'Psychic', 'Moonblast', 'Will_O_Wisp', 'Ice_Shard', 
-'Icicle_Crash', 'Knock_Off', 'Aqua_Tail', 'Draco_Meteor', 'Dark_Pulse', 'Charge_Beam', 'Thunder_Punch', 'Hyper_Voice', 'Mystical_Fire']
-
 # Functions of the game
 def view_move(): # Prompts the player to choose a move so that he can view the details of the move.
 	# Move details
-	Curse = {'Power': 0, 'Type': 'Ghost', 'Category': 'Status', 'PP': 10, 'Accuracy': 0, 'Priority': 0, 'Description': 'Raises Attack and Defense stats by 1 stage each, reduces Speed stat by 1 stage.'}
-	Body_Slam = {'Power': 85, 'Type': 'Normal', 'Category': 'Physical', 'PP': 15, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage and 30% chance of paralysis.'}
-	Rest = {'Power': 0, 'Type': 'Psychic', 'Category': 'Status', 'PP': 10, 'Accuracy': 0, 'Priority': 0, 'Description': 'Sleeps for 2 turns, but fully restores HP and clears status effects.'}
-	Earthquake = {'Power': 100, 'Type': 'Ground', 'Category': 'Physical', 'PP': 10, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage.'} 
-	Swords_Dance = {'Power': 0, 'Type': 'Normal', 'Category': 'Status', 'PP': 20, 'Accuracy': 0, 'Priority': 0, 'Description': 'Raises Attack stat by 2 stages.'}
-	Meteor_Mash = {'Power': 90, 'Type': 'Steel', 'Category': 'Physical', 'PP': 10, 'Accuracy': .9, 'Priority': 0, 'Description': 'Deals damage and 20% chance to raise Attack stat by 1 stage.'}
-	Close_Combat = {'Power': 120, 'Type': 'Fighting', 'Category': 'Physical', 'PP': 5, 'Accuracy': 1, 'Priority': 0, 'Description': 'Lowers Defense and Sp_Def stats by 1 stage each.'}
-	Bullet_Punch = {'Power': 40, 'Type': 'Steel', 'Category': 'Physical', 'PP': 30, 'Accuracy': 1, 'Priority': 1, 'Description': 'Deals damage, usually moves before most other moves.'}
-	Dragon_Dance = {'Power': 0, 'Type': 'Dragon', 'Category': 'Status', 'PP': 20, 'Accuracy': 1, 'Priority': 0, 'Description': 'Raises Attack and Speed stats by 1 stage each.'} 
-	Double_Edge = {'Power': 120, 'Type': 'Normal', 'Category': 'Physical', 'PP': 15, 'Accuracy': 1, 'Priority': 0, 'Description': "Deals damage and receives recoil damage of 1/3 of target's lost HP from damage."} 
-	Dragon_Claw = {'Power': 80, 'Type': 'Dragon', 'Category': 'Physical', 'PP': 15, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage.'} 
-	Aerial_Ace = {'Power': 60, 'Type': 'Flying', 'Category': 'Physical', 'PP': 20, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage, never misses.'} 
-	Scald = {'Power': 80, 'Type': 'Water', 'Category': 'Special', 'PP': 15, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage and 30% chance to burn the target. Also, if the user is Frozen, the user will thaw out.'}
-	Toxic = {'Power': 0, 'Type': 'Poison', 'Category': 'Status', 'PP': 10, 'Accuracy': .9, 'Priority': 0, 'Description': 'Badly poisons the target, and if the user is a Poison type Pokemon, this move will always hit the target.'}
-	Sludge_Bomb = {'Power': 90, 'Type': 'Poison', 'Category': 'Special', 'PP': 10, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage and 30% chance to poison the target.'}
-	Dazzling_Gleam = {'Power': 80, 'Type': 'Fairy', 'Category': 'Special', 'PP': 10, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage.'}
-	Stone_Edge = {'Power': 100, 'Type': 'Rock', 'Category': 'Physical', 'PP': 5, 'Accuracy': .8, 'Priority': 0, 'Description': 'Deals damage, has a high critical hit ratio.'}
-	Megahorn = {'Power': 120, 'Type': 'Bug', 'Category': 'Physical', 'PP': 10, 'Accuracy': .85, 'Priority': 0, 'Description': 'Deals damage.'}
-	Ice_Punch = {'Power': 75, 'Type': 'Ice', 'Category': 'Physical', 'PP': 15, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage and 10% chance to Freeze the target.'}
-	Rock_Slide = {'Power': 75, 'Type': 'Rock', 'Category': 'Physical', 'PP': 10, 'Accuracy': .9, 'Priority': 0, 'Description': 'Deals damage and 30% chance to flinch the target.'}
-	Crunch = {'Power': 80, 'Type': 'Dark', 'Category': 'Physical', 'PP': 15, 'Accuracy': 1, 'Priority': 0, 'Description': "Deals damage and 20% chance to lower target's Defense stat by 1 stage."}
-	Fire_Punch = {'Power': 75, 'Type': 'Fire', 'Category': 'Physical', 'PP': 15, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage and 10% chance to Burn the target.'}
-	Quiver_Dance = {'Power': 0, 'Type': 'Bug', 'Category': 'Status', 'PP': 20, 'Accuracy': 0, 'Priority': 0, 'Description': "Raises the user's Sp_Atk, Sp_Def and Speed stats by 1 stage each."}
-	Flamethrower = {'Power': 90, 'Type': 'Fire', 'Category': 'Special', 'PP': 15, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage and 10% chance to Burn the target.'}
-	Bug_Buzz = {'Power': 90, 'Type': 'Bug', 'Category': 'Special', 'PP': 10, 'Accuracy': 1, 'Priority': 0, 'Description': "Deals damage and 10% chance to lower the target's Sp_Def stat by 1 stage."}
-	Roost = {'Power': 0, 'Type': 'Flying', 'Category': 'Status', 'PP': 10, 'Accuracy': 0, 'Priority': 0, 'Description': 'User restores 50% of their max HP, rounded half up.'}
-	Shadow_Ball = {'Power': 80, 'Type': 'Ghost', 'Category': 'Special', 'PP': 15, 'Accuracy': 1, 'Priority': 0, 'Description': "Deals damage and 20% chance of lowering target's Sp. Def stat by 1 stage."}
-	Sludge_Wave = {'Power': 95, 'Type': 'Poison', 'Category': 'Special', 'PP': 10, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage and 10% chance of Poisoning the target.'}
-	Focus_Blast = {'Power': 120, 'Type': 'Fighting', 'Category': 'Special', 'PP': 5, 'Accuracy': .7, 'Priority': 0, 'Description': "Deals damage and 10% chance of lowering target's Sp. Def stat by 1 stage."}
-	Thunderbolt = {'Power': 90, 'Type': 'Electric', 'Category': 'Special', 'PP': 15, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage and 10% chance to Paralyse the target.'}
-	Fire_Blast = {'Power': 110, 'Type': 'Fire', 'Category': 'Special', 'PP': 5, 'Accuracy': .85, 'Priority': 0, 'Description': 'Deals damage and 10% chance to Burn the target.'} 
-	Air_Slash = {'Power': 75, 'Type': 'Flying', 'Category': 'Special', 'PP': 15, 'Accuracy': .9, 'Priority': 0, 'Description': 'Deals damage and 30% chance to Flinch the target.'}
-	Dragon_Pulse = {'Power': 85, 'Type': 'Dragon', 'Category': 'Special', 'PP': 10, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage.'}
-	Fake_Out = {'Power': 40, 'Type': 'Normal', 'Category': 'Physical', 'PP': 1, 'Accuracy': 1, 'Priority': 3, 'Description': 'Deals damage, always goes first no matter what and 100% chance of making the target Flinch, and can only be used at the very first turn of the battle, else it will fail.'}
-	Hydro_Pump = {'Power': 110, 'Type': 'Water', 'Category': 'Special', 'PP': 5, 'Accuracy': .8, 'Priority': 0, 'Description': 'Deals damage.'}
-	Ice_Beam = {'Power': 90, 'Type': 'Ice', 'Category': 'Special', 'PP': 10, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage and 10% chance to Freeze the target.'}
-	Aura_Sphere = {'Power': 80, 'Type': 'Fighting', 'Category': 'Special', 'PP': 20, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage and this move will always hit.'}
-	Leech_Seed = {'Power': 0, 'Type': 'Grass', 'Category': 'Status', 'PP': 10, 'Accuracy': .9, 'Priority': 0, 'Description': 'Target loses 1/8 of its maximum HP, and user gains that same amount of HP at the end of every turn.'}
-	Leaf_Storm = {'Power': 130, 'Type': 'Grass', 'Category': 'Special', 'PP': 5, 'Accuracy': .9, 'Priority': 0, 'Description': "Deals damage and lowers the user's Sp_Atk stat by 2 stages."}
-	Psychic = {'Power': 90, 'Type': 'Psychic', 'Category': 'Special', 'PP': 10, 'Accuracy': 1, 'Priority': 0, 'Description': "Deals damage and 10% chance to lower target's Sp_Def stat 1 stage."}
-	Moonblast = {'Power': 95, 'Type': 'Fairy', 'Category': 'Special', 'PP': 15, 'Accuracy': 1, 'Priority': 0, 'Description': "Deals damage and 30% chance to lower target's Sp_Atk stat by 1 stage."}
-	Will_O_Wisp = {'Power': 0, 'Type': 'Fire', 'Category': 'Status', 'PP': 15, 'Accuracy': .85, 'Priority': 0, 'Description': 'Burns the target.'}
-	Ice_Shard = {'Power': 40, 'Type': 'Ice', 'Category': 'Physical', 'PP': 30, 'Accuracy': 1, 'Priority': 1, 'Description': 'Deals damage, usually moves before most other moves.'}
-	Icicle_Crash = {'Power': 85, 'Type': 'Ice', 'Category': 'Physical', 'PP': 10, 'Accuracy': .9, 'Priority': 0, 'Description': 'Deals damage and 30% chance to flinch the target.'}
-	Knock_Off = {'Power': 65, 'Type': 'Dark', 'Category': 'Physical', 'PP': 20, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage.'}
-	Aqua_Tail = {'Power': 90, 'Type': 'Water', 'Category': 'Physical', 'PP': 10, 'Accuracy': .9, 'Priority': 0, 'Description': 'Deals damage.'}
-	Draco_Meteor = {'Power': 130, 'Type': 'Dragon', 'Category': 'Special', 'PP': 5, 'Accuracy': .9, 'Priority': 0, 'Description': "Deals damage and then lowers the user's Sp_Atk stat by 2 stages."}
-	Dark_Pulse = {'Power': 80, 'Type': 'Dark', 'Category': 'Special', 'PP': 15, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage and 20% chance to flinch the target.'}
-	Charge_Beam = {'Power': 50, 'Type': 'Electric', 'Category': 'Special', 'PP': 10, 'Accuracy': .9, 'Priority': 0, 'Description': "Deals damage and 70% chance to raise user's Sp_Atk stat by 1 stage."}
-	Thunder_Punch = {'Power': 75, 'Type': 'Electric', 'Category': 'Physical', 'PP': 15, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage and 10% chance to Paralyse the target.'}
-	Hyper_Voice = {'Power': 90, 'Type': 'Normal', 'Category': 'Special', 'PP': 10, 'Accuracy': 1, 'Priority': 0, 'Description': 'Deals damage.'}
-	Mystical_Fire = {'Power': 75, 'Type': 'Fire', 'Category': 'Special', 'PP': 10, 'Accuracy': 1, 'Priority': 0, 'Description': "Deals damage and lowers target's Sp_Atk stat by 1 stage."}
-  
 	print()
 	move_name_string = input("Please type in the name of the move (exactly as displayed, excluding the '') to view its details, type 'next' if you no longer wish to view the moves: ")
 	print()
